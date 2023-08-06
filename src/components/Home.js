@@ -6,18 +6,18 @@ import TagSection from "./TagSection";
 import PostSection from "./PostSection";
 
 // to pass/send a object or data in react
-// In main root 
-// <component_name func_name={object}/> just in line 30. 
+// In main root
+// <component_name func_name={object}/> just in line 30.
 
 class Home extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       user: {},
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const that = this;
     fetch("http://localhost:5000/api/v1/user")
       .then((resp) => resp.json())
@@ -29,24 +29,24 @@ class Home extends Component {
       });
   }
   render() {
-    const user = {...this.state.user};
+    const user = { ...this.state.user };
     // const {user} = this.state;
-    if(!Object.keys(user).length){
-      return<div></div>;
+    if (!Object.keys(user).length) {
+      return <div></div>;
     }
     return (
       <div className="wrapper">
-        <Header user={user}/>
+        <Header user={user} />
         <main>
           <div className="main-section">
             <div className="container">
               <div className="main-section-data">
                 <div className="row">
-                  <UserData user={user}/>
+                  <UserData user={user} />
                   <div className="col-lg-6 col-md-8 no-pd">
                     <div className="main-ws-sec">
-                      <PostTopBar user={user}/>
-                      <PostSection/>
+                      <PostTopBar user={user} />
+                      <PostSection />
                     </div>
                   </div>
                   <div className="col-lg-3 pd-right-none no-pd">

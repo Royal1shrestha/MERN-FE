@@ -1,18 +1,84 @@
 import { Component } from "react";
 
 class Login extends Component {
-  handleSignUpClick() {
+  handleSignInClick(evnt) {
+    const formElem = document.getElementById("login-form");
+    const username = formElem.querySelector("#username").value;
+    const password = formElem.querySelector("#password").value;
+
+    if(!username || !password) {
+      document.querySelector("#err").innerHTML= "Username/Password Required";
+      return;
+    }
+
+    // clear error if any
+    document.querySelector("#err").innerHTML= "";
+    // call backend API meassage if any
+    fetch("http://localhost:5000/api/v1/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,password,
+      })
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if(data.error)
+        {
+          document.querySelector("#err").innerHTML = data.error;
+        }
+        console.log("Created new user", data);
+      })
+      .catch((err) => {
+        // display error
+        document.querySelector("#err").innerHTML = err.message;
+        console.error(err);
+      });
+  }
+
+  handleSignUpClick(evnt) {
+    const formElem = document.getElementById("signup-form");
+    const username = formElem.querySelector("#signin-username").value;
+    const email = formElem.querySelector("#email").value;
+    const fullname = formElem.querySelector("#fullname").value;
+    const address = formElem.querySelector("#address").value;
+    const title = formElem.querySelector("#title").value;
+    const skills = formElem.querySelector("#skills").value.split(",");
+    const job_type = formElem.querySelector("#job_type").value;
+    const password = formElem.querySelector("#signin-password").value;
+    const rep_password = formElem.querySelector("#repeat-password").value;
+    const term = formElem.querySelector("#c2").value;
+
+    if(password !== rep_password)
+    {
+      console.log("The password doesn't match.");
+      return;
+    }
+    // clear error if any
+    document.querySelector("#err").innerHTML= "";
+    // Call backend API user create API
     fetch("http://localhost:5000/api/v1/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        username,email,fullname,address,title,skills,job_type,password
+      })
     })
       .then((resp) => resp.json())
       .then((data) => {
+        if(data.error)
+        {
+          document.querySelector("#err").innerHTML = data.error;
+        }
         console.log("Created new user", data);
       })
       .catch((err) => {
+        // display error
+        document.querySelector("#err").innerHTML = err.message;
         console.error(err);
       });
   }
@@ -55,7 +121,7 @@ class Login extends Component {
                   </ul>
                   <div className="sign_in_sec current" id="tab-1">
                     <h3>Sign in</h3>
-                    <form id="login-form">
+                    <form id="login-form" method="POST" action="">
                       <div className="row">
                         <div className="col-lg-6">
                           <div className="sn-field">
@@ -91,7 +157,7 @@ class Login extends Component {
                           </div>
                         </div>
                         <div className="col-lg-12">
-                          <button type="submit" value="submit">
+                          <button type="button" value="submit" onClick={this.handleSignInClick}>
                             Sign in
                           </button>
                         </div>
@@ -104,6 +170,7 @@ class Login extends Component {
                       <div className="row">
                         <div className="col-lg-6">
                           <div className="sn-field">
+                            <div id="err"></div>
                             <input
                               type="text"
                               name="username"
@@ -116,7 +183,7 @@ class Login extends Component {
                         <div className="col-lg-6">
                           <div className="sn-field">
                             <input
-                              type="text"
+                              type="email"
                               name="email"
                               id="email"
                               placeholder="Email"
@@ -218,7 +285,11 @@ class Login extends Component {
                           </div>
                         </div>
                         <div className="col-lg-6">
-                          <button type="submit" value="submit">
+                          <button
+                            type="button"
+                            value="submit"
+                            onClick={this.handleSignUpClick}
+                          >
                             Get Started
                           </button>
                         </div>
