@@ -1,18 +1,23 @@
 import { Component } from "react";
 
 class Login extends Component {
+  constructor() {
+    super();
+    this.handleSignInClick = this.handleSignInClick.bind(this);
+  }
+
   handleSignInClick(evnt) {
     const formElem = document.getElementById("login-form");
     const username = formElem.querySelector("#username").value;
     const password = formElem.querySelector("#password").value;
 
-    if(!username || !password) {
-      document.querySelector("#err").innerHTML= "Username/Password Required";
+    if (!username || !password) {
+      document.querySelector("#err").innerHTML = "Username/Password Required";
       return;
     }
 
     // clear error if any
-    document.querySelector("#err").innerHTML= "";
+    document.querySelector("#err").innerHTML = "";
     // call backend API meassage if any
     fetch("http://localhost:5000/api/v1/login", {
       method: "POST",
@@ -20,16 +25,18 @@ class Login extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,password,
-      })
+        username,
+        password,
+      }),
     })
       .then((resp) => resp.json())
       .then((data) => {
-        if(data.error)
-        {
+        if (data.error) {
           document.querySelector("#err").innerHTML = data.error;
         }
-        console.log("Created new user", data);
+        else {
+          this.props.loginUser(data);
+        }
       })
       .catch((err) => {
         // display error
@@ -51,13 +58,12 @@ class Login extends Component {
     const rep_password = formElem.querySelector("#repeat-password").value;
     const term = formElem.querySelector("#c2").value;
 
-    if(password !== rep_password)
-    {
+    if (password !== rep_password) {
       console.log("The password doesn't match.");
       return;
     }
     // clear error if any
-    document.querySelector("#err").innerHTML= "";
+    document.querySelector("#err").innerHTML = "";
     // Call backend API user create API
     fetch("http://localhost:5000/api/v1/user", {
       method: "POST",
@@ -65,16 +71,24 @@ class Login extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,email,fullname,address,title,skills,job_type,password
-      })
+        username,
+        email,
+        fullname,
+        address,
+        title,
+        skills,
+        job_type,
+        password,
+      }),
     })
       .then((resp) => resp.json())
       .then((data) => {
-        if(data.error)
-        {
+        if (data.error) {
           document.querySelector("#err").innerHTML = data.error;
         }
-        console.log("Created new user", data);
+        else{
+          document.querySelector("#err").innerHTML = "SIgnup Successful";
+        }
       })
       .catch((err) => {
         // display error
@@ -157,7 +171,11 @@ class Login extends Component {
                           </div>
                         </div>
                         <div className="col-lg-12">
-                          <button type="button" value="submit" onClick={this.handleSignInClick}>
+                          <button
+                            type="button"
+                            value="submit"
+                            onClick={this.handleSignInClick}
+                          >
                             Sign in
                           </button>
                         </div>
