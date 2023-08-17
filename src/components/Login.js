@@ -18,7 +18,7 @@ class Login extends Component {
 
     // clear error if any
     document.querySelector("#err").innerHTML = "";
-    // call backend API meassage if any
+    // call backend API to create user
     fetch("http://localhost:5000/api/v1/login", {
       method: "POST",
       headers: {
@@ -35,7 +35,7 @@ class Login extends Component {
           document.querySelector("#err").innerHTML = data.error;
         }
         else {
-          this.props.loginUser(data);
+          this.props.loginUser(data.data);
         }
       })
       .catch((err) => {

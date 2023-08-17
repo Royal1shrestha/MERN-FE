@@ -3,16 +3,16 @@ $(window).on("load", function () {
 
   //  ============= POST PROJECT POPUP FUNCTION =========
 
-  $(".post_project").on("click", function () {
-    $(".post-popup.pst-pj").addClass("active");
-    $(".wrapper").addClass("overlay");
-    return false;
-  });
-  $(".post-project > a").on("click", function () {
-    $(".post-popup.pst-pj").removeClass("active");
-    $(".wrapper").removeClass("overlay");
-    return false;
-  });
+  // $(".post_project").on("click", function () {
+  //   $(".post-popup.pst-pj").addClass("active");
+  //   $(".wrapper").addClass("overlay");
+  //   return false;
+  // });
+  // $(".post-project > a").on("click", function () {
+  //   $(".post-popup.pst-pj").removeClass("active");
+  //   $(".wrapper").removeClass("overlay");
+  //   return false;
+  // });
 
   //  ============= POST JOB POPUP FUNCTION =========
 
@@ -21,11 +21,11 @@ $(window).on("load", function () {
     $(".wrapper").addClass("overlay");
     return false;
   });
-  $(".post-project > a").on("click", function () {
-    $(".post-popup.job_post").removeClass("active");
-    $(".wrapper").removeClass("overlay");
-    return false;
-  });
+  // $(".post-project > a").on("click", function () {
+  //   $(".post-popup.job_post").removeClass("active");
+  //   $(".wrapper").removeClass("overlay");
+  //   return false;
+  // });
 
   //  ============= SIGNIN CONTROL FUNCTION =========
 
@@ -62,10 +62,10 @@ $(window).on("load", function () {
 
   //  ============= COVER GAP FUNCTION =========
 
-  var gap = $(".container").offset().left;
-  $(".cover-sec > a, .chatbox-list").css({
-    right: gap,
-  });
+  // var gap = $(".container").offset().left;
+  // $(".cover-sec > a, .chatbox-list").css({
+  //   right: gap,
+  // });
 
   //  ============= OVERVIEW EDIT FUNCTION =========
 
@@ -233,12 +233,12 @@ $(".user-info").on("click", function(){$("#users").hide();
     });
     
 	*/
-  $(".user-info").click(function () {
-    $(".user-account-settingss").slideToggle("fast");
-    $("#message").not($(this).next("#message")).slideUp();
-    $("#notification").not($(this).next("#notification")).slideUp();
-    // Animation complete.
-  });
+  // $(".user-info").click(function () {
+  //   $(".user-account-settingss").slideToggle("fast");
+  //   $("#message").not($(this).next("#message")).slideUp();
+  //   $("#notification").not($(this).next("#notification")).slideUp();
+  //   // Animation complete.
+  // });
 
   //  ============= FORUM LINKS MOBILE MENU FUNCTION =========
 

@@ -1,6 +1,12 @@
 import { Component } from "react";
 
 class Header extends Component {
+  handleLogout(event) {
+    // remove session
+    event.preventDefault();
+    window.sessionStorage.clear();
+    window.location.reload();
+  }
   render() {
     const {user} = this.props;
     const firstName = user.fullname.split(" ")[0];
@@ -251,7 +257,7 @@ class Header extends Component {
                   </li>
                 </ul>
                 <h3 className="tc">
-                  <a href="./sign-in.html" title="">
+                  <a href="./#" title="" onClick={this.handleLogout}>
                     Logout
                   </a>
                 </h3>
